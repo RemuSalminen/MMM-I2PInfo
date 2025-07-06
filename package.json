@@ -1,0 +1,21 @@
+{
+  "name": "mmm-i2pinfo",
+  "version": "1.0.0",
+  "description": "Display stats from a running I2P node",
+  "homepage": "https://github.com/RemuSalminen/MMM-I2PInfo#readme",
+  "main": "MMM-I2PInfo.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RemuSalminen/MMM-I2PInfo.git"
+  },
+  "keywords": [
+    "magicmirror",
+    "I2P",
+    "node"
+  ],
+  "author": "Remu Salminen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RemuSalminen/MMM-I2PInfo/issues"
+  }
+}
