@@ -17,5 +17,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/RemuSalminen/MMM-I2PInfo/issues"
+  },
+  "dependencies": {
+    "json-rpc-2.0": "^1.7.1"
   }
 }
