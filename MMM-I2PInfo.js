@@ -1,5 +1,4 @@
-//import { JSONRPCClient } from "json-rpc-2.0";
-const JSONRPCClient = require("json-rpc-2.0");
+import { JSONRPCClient } from "json-rpc-2.0";
 
 Module.register("MMM-I2PInfo", {
 	// Setup Config
