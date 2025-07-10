@@ -1,4 +1,5 @@
-import { JSONRPCClient } from "json-rpc-2.0";
+//import { JSONRPCClient } from "json-rpc-2.0";
+const JSONRPCClient = require("json-rpc-2.0");
 
 Module.register("MMM-I2PInfo", {
 	// Setup Config
@@ -106,7 +107,9 @@ Module.register("MMM-I2PInfo", {
 
 	start: function() {
 		setInterval(() => {
+			Log.log("Updating Router Info...");
 			this.UpdateRouterInfo();
+			Log.log("Refreshing Dom");
 			this.updateDom({
 				options: {
 					speed: this.interval / 4
