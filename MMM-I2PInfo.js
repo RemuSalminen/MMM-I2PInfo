@@ -67,18 +67,59 @@ Module.register("MMM-I2PInfo", {
 		return InfoJSON;
 	},
 
+	UpdateRouterInfo: async function() {
+		const NewStats = await this.RouterInfo();
+
+		this.Router = {
+			netStatus: NewStats['i2p.router.net.status'],
+			status: NewStats['i2p.router.status'],
+			uptime: NewStats['i2p.router.uptime'],
+			inbound1s: NewStats['i2p.router.net.bw.inbound.1s'],
+			inbound15s: NewStats['i2p.router.net.bw.inbound.15s'],
+			outbound1s: NewStats['i2p.router.net.bw.outbound.1s'],
+			outbound15s: NewStats['i2p.router.net.bw.outbound.15s'],
+			participating: NewStats['i2p.router.net.tunnels.participating'],
+			activePeers: NewStats['i2p.router.netdb.activepeers'],
+			fastPeers: NewStats['i2p.router.netdb.fastpeers'],
+			highCapacityPeers: NewStats['i2p.router.netdb.highcapacitypeers'],
+			knownPeers: NewStats['i2p.router.netdb.knownpeers'],
+			isReseeding: NewStats['i2p.router.netdb.isreseeding']
+		};
+
+	},
+
 	//---// MagicMirror Functions //---//
 	loaded: async function(callback) {
-		Log.log("Loading " + this.name)
+		Log.log("Loading " + this.name);
 		const URL = this.ip + ":" + this.port + this.site;
 		Log.log("Url is " + URL);
 
-		Log.log("Creating RPC Client...")
-		this.Client = await this.createRPCClient(URL)
+		Log.log("Creating RPC Client...");
+		this.Client = await this.createRPCClient(URL);
 		Log.log("Authorizing...");
 		this.Token = await this.Authenticate(Client);
 
-		Log.log("Finished loading " + this.name)
+		Log.log("Finished loading " + this.name);
 		callback();
+	},
+
+	start: function() {
+		setInterval(() => {
+			this.UpdateRouterInfo();
+			this.updateDom({
+				options: {
+					speed: this.interval / 4
+				}
+			})
+		}, this.interval);
+	},
+
+	getDom: function() {
+		const wrapper = document.createElement("div");
+		wrapper.className = "I2P";
+
+		wrapper.appendChild(this.Router.netStatus);
+
+		return wrapper;
 	}
 });
