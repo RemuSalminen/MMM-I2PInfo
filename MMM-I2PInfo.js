@@ -74,6 +74,7 @@ Module.register("MMM-I2PInfo", {
 			netStatus: NewStats['i2p.router.net.status'],
 			status: NewStats['i2p.router.status'],
 			uptime: NewStats['i2p.router.uptime'],
+			version: NewStats['i2p.router.version'],
 			inbound1s: NewStats['i2p.router.net.bw.inbound.1s'],
 			inbound15s: NewStats['i2p.router.net.bw.inbound.15s'],
 			outbound1s: NewStats['i2p.router.net.bw.outbound.1s'],
@@ -118,7 +119,16 @@ Module.register("MMM-I2PInfo", {
 		const wrapper = document.createElement("div");
 		wrapper.className = "I2P";
 
-		wrapper.appendChild(this.Router.netStatus);
+		wrapper.appendChild(this.getDomHeader());
+
+		return wrapper;
+	},
+
+	// DOM constructs
+	getDomHeader: function() {
+		const wrapper = document.createElement("div");
+		wrapper.className = "Header";
+		wrapper.innerHTML = "I2P" + " " + this.Version;
 
 		return wrapper;
 	}
