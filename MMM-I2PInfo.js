@@ -60,10 +60,10 @@ Module.register("MMM-I2PInfo", {
 			'i2p.router.netdb.highcapacitypeers': null,
 			'i2p.router.netdb.isreseeding': null,
 			'i2p.router.netdb.knownpeers': null,
-			'Token': Token
+			'Token': this.Token
 		}
 
-		const InfoJSON = await Client.request("RouterInfo", InfoRequest);
+		const InfoJSON = await this.Client.request("RouterInfo", InfoRequest);
 		return InfoJSON;
 	},
 
