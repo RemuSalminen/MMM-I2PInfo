@@ -24,13 +24,17 @@ Module.register("MMM-I2PInfo", {
 	socketNotificationReceived: async function(notification, payload) {
 		switch (notification) {
 			case "I2P_ClientCreated":
-				//if (this.token != undefined) break;
-				//this.client = payload.client;
-				//this.token = payload.token;
+				Log.debug("Token: "+this.token);
+				if (this.token != undefined) break;
+				this.client = payload.client;
+				this.token = payload.token;
+				Log.debug("Token: "+this.token);
+				Log.debug("Interval: "+this.config.interval / 1000+" sec")
 
-				//setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: payload.client, token: payload.token }), this.interval)
+				setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { token: this.token }), this.config.interval)
 				break;
 			case "I2P_RouterInfoFetched":
+				Log.debug("New Info Received");
 				if (payload.token != this.token) break;
 				this.Router = payload.routerInfo;
 				Log.log(this.Router);

@@ -2,6 +2,8 @@ const NodeHelper = require("node_helper");
 const RPC = require("json-rpc-2.0");
 const Log = require("logger");
 
+const ClientDictionary = new Map();
+
 module.exports = NodeHelper.create({
 	socketNotificationReceived: async function(notification, payload) {
 		switch (notification) {
@@ -18,12 +20,22 @@ module.exports = NodeHelper.create({
 				const Token = await this.authenticate(Client, version, password);
 				Log.info("Authenticated! Token: " + Token);
 
-				this.sendSocketNotification("I2P_ClientCreated", { client: Client, token: Token })
+				ClientDictionary.set(Token, Client);
+
+				this.sendSocketNotification("I2P_ClientCreated", { token: Token })
 				break;
 			case "I2P_FetchRouterInfo":
-				//const ClientToFetch = payload.client;
+				Log.debug("Dictionary:");
+				Log.debug(ClientDictionary);
+				const ClientToFetch = ClientDictionary[payload.token];
+
+				// Fix initialization
+				if (ClientToFetch == undefined) break;
+
+				Log.debug("Fetching from: ");
+				Log.debug(ClientToFetch);
 				//const TokenToFetch = payload.token;
-				let RouterInfo = await this.FetchRouterInfo(payload.client, payload.token);
+				let RouterInfo = await this.FetchRouterInfo(ClientToFetch, payload.token);
 
 				this.sendSocketNotification("I2P_RouterInfoFetched", { token: payload.token, routerInfo: RouterInfo })
 				break;
@@ -86,6 +98,8 @@ module.exports = NodeHelper.create({
 	},
 
 	FetchRouterInfo: async function (Client, Token) {
+		Log.debug("Passed Client:");
+		Log.debug(Client);
 		const NewStats = await this.RouterInfo(Client, Token);
 
 		const RouterInfo = {
