@@ -31,6 +31,9 @@ Module.register("MMM-I2PInfo", {
 				Log.debug("Token: "+this.token);
 				Log.debug("Interval: "+this.config.interval / 1000+" sec")
 
+				// Request the Initial Update
+				this.sendSocketNotification("I2P_FetchRouterInfo", { token: this.token })
+				// Setup the Intervalled Fetching
 				setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { token: this.token }), this.config.interval)
 				break;
 			case "I2P_RouterInfoFetched":
