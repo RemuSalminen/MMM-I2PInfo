@@ -12,10 +12,10 @@ Module.register("MMM-I2PInfo", {
 	//---// MagicMirror Functions //---//
 	loaded: function(callback) {
 		Log.log("Loading " + this.name);
-		const URL = this.ip + ":" + this.port + this.site;
+		const URL = this.config.ip + ":" + this.config.port + this.config.site;
 		Log.log("Url is " + URL);
 
-		this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.version, Password: this.password });
+		this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.config.version, Password: this.config.password });
 
 		Log.log("Finished loading " + this.name);
 		callback();
@@ -40,7 +40,7 @@ Module.register("MMM-I2PInfo", {
 	},
 
 	start: function() {
-		setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.interval)
+		setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.config.interval)
 	},
 
 	getDom: function() {
