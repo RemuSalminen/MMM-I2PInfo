@@ -1,4 +1,104 @@
 const NodeHelper = require("node_helper");
-module.exports = NodeHelper.create({
+const JSONRPCClient = require("json-rpc-2.0");
 
+module.exports = NodeHelper.create({
+	socketNotificationReceived: async function(notification, payload) {
+		let Client;
+		let Token;
+		switch (notification) {
+			case "I2P_CreateClient&Authenticate":
+				const url = payload.URL;
+				Client = this.createRPCClient(url);
+
+				let version = payload.Version;
+				let password = payload.Password;
+				Token = await this.authenticate(Client, version, password);
+
+				this.sendSocketNotification("I2P_ClientCreated", { client: Client, token: Token })
+				break;
+			case "I2P_FetchRouterInfo":
+				Client = payload.client;
+				Token = payload.token;
+				let RouterInfo = await this.FetchRouterInfo(Client, Token);
+
+				this.sendSocketNotification("I2P_RouterInfoFetched", { token: Token, routerInfo: RouterInfo })
+				break;
+			default:
+				break;
+		}
+	},
+
+	//---// Functions //---//
+	createRPCClient: function(URL) {
+		const Client = new JSONRPCClient((request) =>
+			fetch(URL, {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify(request),
+		}).then((response) => {
+				if (response.status === 200) {
+					return response
+						.json()
+						.then((RPCResponse) => Client.receive(RPCResponse));
+				} else if (request.id !== undefined) {
+					return Promise.reject(new Error(response.statusText));
+				}
+			})
+		)
+
+		return Client;
+	},
+
+	authenticate: async function(Client, version, password) {
+		const response = await Client.request("Authenticate", { API: version, Password: password });
+		return response.Token;
+	},
+
+	RouterInfo: async function (Client, Token) {
+		const InfoRequest = {
+			'i2p.router.status': null,
+			'i2p.router.uptime': null,
+			'i2p.router.version': null,
+			'i2p.router.net.bw.inbound.1s': null,
+			'i2p.router.net.bw.inbound.15s': null,
+			'i2p.router.net.bw.outbound.1s': null,
+			'i2p.router.net.bw.outbound.15s': null,
+			'i2p.router.net.status': null,
+			'i2p.router.net.tunnels.participating': null,
+			'i2p.router.netdb.activepeers': null,
+			'i2p.router.netdb.fastpeers': null,
+			'i2p.router.netdb.highcapacitypeers': null,
+			'i2p.router.netdb.isreseeding': null,
+			'i2p.router.netdb.knownpeers': null,
+			'Token': Token
+		}
+
+		const InfoJSON = await Client.request("RouterInfo", InfoRequest);
+		return InfoJSON;
+	},
+
+	FetchRouterInfo: async function (Client, Token) {
+		const NewStats = await this.RouterInfo(Client, Token);
+
+		const RouterInfo = {
+			netStatus: NewStats['i2p.router.net.status'],
+			status: NewStats['i2p.router.status'],
+			uptime: NewStats['i2p.router.uptime'],
+			version: NewStats['i2p.router.version'],
+			inbound1s: NewStats['i2p.router.net.bw.inbound.1s'],
+			inbound15s: NewStats['i2p.router.net.bw.inbound.15s'],
+			outbound1s: NewStats['i2p.router.net.bw.outbound.1s'],
+			outbound15s: NewStats['i2p.router.net.bw.outbound.15s'],
+			participating: NewStats['i2p.router.net.tunnels.participating'],
+			activePeers: NewStats['i2p.router.netdb.activepeers'],
+			fastPeers: NewStats['i2p.router.netdb.fastpeers'],
+			highCapacityPeers: NewStats['i2p.router.netdb.highcapacitypeers'],
+			knownPeers: NewStats['i2p.router.netdb.knownpeers'],
+			isReseeding: NewStats['i2p.router.netdb.isreseeding']
+		};
+
+		return RouterInfo;
+	}
 });
