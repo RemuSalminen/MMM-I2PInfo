@@ -27,17 +27,18 @@ module.exports = NodeHelper.create({
 			case "I2P_FetchRouterInfo":
 				Log.debug("Dictionary:");
 				Log.debug(ClientDictionary);
-				const ClientToFetch = ClientDictionary[payload.token];
+				const TokenToFetch = payload.token;
+				const ClientToFetch = ClientDictionary.get(TokenToFetch);
+
+				Log.debug("Trying to access: "+payload.token);
+				Log.debug("Found: "+ClientToFetch);
 
 				// Fix initialization
 				if (ClientToFetch == undefined) break;
 
-				Log.debug("Fetching from: ");
-				Log.debug(ClientToFetch);
-				//const TokenToFetch = payload.token;
-				let RouterInfo = await this.FetchRouterInfo(ClientToFetch, payload.token);
+				let RouterInfo = await this.FetchRouterInfo(ClientToFetch, TokenToFetch);
 
-				this.sendSocketNotification("I2P_RouterInfoFetched", { token: payload.token, routerInfo: RouterInfo })
+				this.sendSocketNotification("I2P_RouterInfoFetched", { token: TokenToFetch, routerInfo: RouterInfo })
 				break;
 			default:
 				break;
