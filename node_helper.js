@@ -100,5 +100,5 @@ module.exports = NodeHelper.create({
 		};
 
 		return RouterInfo;
-	}
+	},
 });
