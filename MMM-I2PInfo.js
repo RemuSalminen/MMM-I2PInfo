@@ -40,8 +40,6 @@ Module.register("MMM-I2PInfo", {
 	},
 
 	start: function() {
-		while (this.token == undefined) {
-		}
 		setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.interval)
 	},
 
