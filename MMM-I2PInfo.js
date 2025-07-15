@@ -15,7 +15,7 @@ Module.register("MMM-I2PInfo", {
 		const URL = this.ip + ":" + this.port + this.site;
 		Log.log("Url is " + URL);
 
-		this.sendSocketNotification(URL, this.version, this.password);
+		this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.version, Password: this.password });
 
 		Log.log("Finished loading " + this.name);
 		callback();
@@ -40,6 +40,8 @@ Module.register("MMM-I2PInfo", {
 	},
 
 	start: function() {
+		while (this.token == undefined) {
+		}
 		setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.interval)
 	},
 
