@@ -4,33 +4,36 @@ Module.register("MMM-I2PInfo", {
 		ip: "http://127.0.0.1",
 		port: "7657",
 		site: "/jsonrpc/",
-		version: "1",
+		version: 1,
 		password: "itoopie",
 		interval: 1000,
 	},
 
 	//---// MagicMirror Functions //---//
 	loaded: function(callback) {
-		Log.log("Loading " + this.name);
-		const URL = this.config.ip + ":" + this.config.port + this.config.site;
-		Log.log("Url is " + URL);
+		//Log.log("Loading " + this.name);
+		//const URL = this.ip + ":" + this.port + this.site;
+		//Log.log("Url is " + URL);
 
-		this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.config.version, Password: this.config.password });
+		//this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.version, Password: this.password });
 
-		Log.log("Finished loading " + this.name);
+		//Log.log("Finished loading " + this.name);
 		callback();
 	},
 
 	socketNotificationReceived: async function(notification, payload) {
 		switch (notification) {
 			case "I2P_ClientCreated":
-				if (this.token != undefined) break;
-				this.client = payload.client;
-				this.token = payload.token;
+				//if (this.token != undefined) break;
+				//this.client = payload.client;
+				//this.token = payload.token;
+
+				//setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: payload.client, token: payload.token }), this.interval)
 				break;
 			case "I2P_RouterInfoFetched":
 				if (payload.token != this.token) break;
 				this.Router = payload.routerInfo;
+				Log.log(this.Router);
 
 				this.updateDom();
 				break;
@@ -40,7 +43,16 @@ Module.register("MMM-I2PInfo", {
 	},
 
 	start: function() {
-		setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.config.interval)
+		const URL = this.config.ip + ":" + this.config.port + this.config.site;
+		Log.log("Url is " + URL);
+
+		//this.client = "";
+		//this.token = "";
+
+		this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.config.version, Password: this.config.password });
+
+		//while (this.token == undefined) {};
+		//setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.config.interval)
 	},
 
 	getDom: function() {

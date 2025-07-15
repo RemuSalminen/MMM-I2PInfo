@@ -1,27 +1,31 @@
 const NodeHelper = require("node_helper");
-const JSONRPCClient = require("json-rpc-2.0");
+const RPC = require("json-rpc-2.0");
+const Log = require("logger");
 
 module.exports = NodeHelper.create({
 	socketNotificationReceived: async function(notification, payload) {
-		let Client;
-		let Token;
 		switch (notification) {
 			case "I2P_CreateClient&Authenticate":
 				const url = payload.URL;
-				Client = this.createRPCClient(url);
+				const Client = this.createRPCClient(url);
 
 				let version = payload.Version;
 				let password = payload.Password;
-				Token = await this.authenticate(Client, version, password);
+				Log.info("Autheticating...");
+				Log.debug("Version: "+version+" "+"Password: "+password);
+				Log.debug("Client:");
+				Log.debug(Client);
+				const Token = await this.authenticate(Client, version, password);
+				Log.info("Authenticated! Token: " + Token);
 
 				this.sendSocketNotification("I2P_ClientCreated", { client: Client, token: Token })
 				break;
 			case "I2P_FetchRouterInfo":
-				Client = payload.client;
-				Token = payload.token;
-				let RouterInfo = await this.FetchRouterInfo(Client, Token);
+				//const ClientToFetch = payload.client;
+				//const TokenToFetch = payload.token;
+				let RouterInfo = await this.FetchRouterInfo(payload.client, payload.token);
 
-				this.sendSocketNotification("I2P_RouterInfoFetched", { token: Token, routerInfo: RouterInfo })
+				this.sendSocketNotification("I2P_RouterInfoFetched", { token: payload.token, routerInfo: RouterInfo })
 				break;
 			default:
 				break;
@@ -30,7 +34,7 @@ module.exports = NodeHelper.create({
 
 	//---// Functions //---//
 	createRPCClient: function(URL) {
-		const Client = new JSONRPCClient((request) =>
+		const Client = new RPC.JSONRPCClient((request) =>
 			fetch(URL, {
 				method: "POST",
 				headers: {
@@ -52,7 +56,9 @@ module.exports = NodeHelper.create({
 	},
 
 	authenticate: async function(Client, version, password) {
-		const response = await Client.request("Authenticate", { API: version, Password: password });
+		const request = { API: version, Password: password };
+		//Log.debug(request);
+		const response = await Client.request("Authenticate", request);
 		return response.Token;
 	},
 
@@ -98,6 +104,8 @@ module.exports = NodeHelper.create({
 			knownPeers: NewStats['i2p.router.netdb.knownpeers'],
 			isReseeding: NewStats['i2p.router.netdb.isreseeding']
 		};
+
+		Log.info("RouterInfo:\n" + RouterInfo);
 
 		return RouterInfo;
 	},
