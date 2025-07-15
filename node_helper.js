@@ -25,8 +25,8 @@ module.exports = NodeHelper.create({
 				this.sendSocketNotification("I2P_ClientCreated", { token: Token })
 				break;
 			case "I2P_FetchRouterInfo":
-				Log.debug("Dictionary:");
-				Log.debug(ClientDictionary);
+				//Log.debug("Dictionary:");
+				//Log.debug(ClientDictionary);
 				const TokenToFetch = payload.token;
 				const ClientToFetch = ClientDictionary.get(TokenToFetch);
 
@@ -99,8 +99,8 @@ module.exports = NodeHelper.create({
 	},
 
 	FetchRouterInfo: async function (Client, Token) {
-		Log.debug("Passed Client:");
-		Log.debug(Client);
+		//Log.debug("Passed Client:");
+		//Log.debug(Client);
 		const NewStats = await this.RouterInfo(Client, Token);
 
 		const RouterInfo = {
@@ -120,7 +120,8 @@ module.exports = NodeHelper.create({
 			isReseeding: NewStats['i2p.router.netdb.isreseeding']
 		};
 
-		Log.info("RouterInfo:\n" + RouterInfo);
+		Log.debug("RouterInfo:");
+		Log.debug(RouterInfo);
 
 		return RouterInfo;
 	},
