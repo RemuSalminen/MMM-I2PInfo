@@ -190,7 +190,7 @@ Module.register("MMM-I2PInfo", {
 		const _in1s = this.Router.inbound1s;
 		const _in15s = this.Router.inbound15s;
 		const _out1s = this.Router.outbound1s;
-		const _out15s = this.Routet.outbound15s;
+		const _out15s = this.Router.outbound15s;
 
 		// Convert Bps to KBps
 		const in1s = Math.round(_in1s/100) / 10 + " KBps";
