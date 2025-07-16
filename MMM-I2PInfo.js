@@ -89,7 +89,7 @@ Module.register("MMM-I2PInfo", {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Status";
 
-		const status = this.Router.status;
+		const netStatus = this.Router.netStatus;
 		const statusState = {
 			0: "OK",
 			1: "OK",
@@ -107,7 +107,7 @@ Module.register("MMM-I2PInfo", {
 			13: "ERROR",
 			14: "ERROR"
 		};
-		const state = statusState[status];
+		const state = statusState[netStatus];
 		const statusText = {
 			0: "Accepting Tunnel Requests",
 			1: "Testing",
@@ -126,7 +126,7 @@ Module.register("MMM-I2PInfo", {
 			14: "UDP Disabled And TCP Unset"
 		};
 
-		wrapper.innerHTML = `<${state}>Status: ${statusText[status]}</${state}>`;
+		wrapper.innerHTML = `<${state}>Status: ${statusText[netStatus]}</${state}>`;
 
 		return wrapper;
 	}
