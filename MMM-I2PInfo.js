@@ -187,6 +187,24 @@ Module.register("MMM-I2PInfo", {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Network";
 
+		const _in1s = this.Router.inbound1s;
+		const _in15s = this.Router.inbound15s;
+		const _out1s = this.Router.outbound1s;
+		const _out15s = this.Routet.outbound15s;
+
+		// Convert Bps to KBps
+		const in1s = Math.round(_in1s/100) / 10 + " KBps";
+		const in15s = Math.round(_in15s/100) / 10 + " KBps";
+		const out1s = Math.round(_out1s/100) / 10 + " KBps";
+		const out15s = Math.round(_out15s/100) / 10 + " KBps";
+
+		const up1s = "<span class=\"fa fa-angle-up\"</span>";
+		const down1s = "<span class=\"fa fa-angle-down\"</span>";
+		const up15s = "<span class=\"fa fa-angles-up\"</span>";
+		const down15s = "<span class=\"fa fa-angles-down\"</span>";
+
+		wrapper.innerHTML = `<short><symbol>${up1s}</symbol>${in1s} - <symbol>${down1s}</symbol>${out1s}</short>\n`
+											+`<long><symbol>${up15s}</symbol>${in15s} - <symbol>${down15s}</symbol>${out15s}</long>`;
 		return wrapper;
 	},
 	getDomTunnels: function() {
