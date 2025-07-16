@@ -159,7 +159,7 @@ Module.register("MMM-I2PInfo", {
 		const Ssec = sec > 0 ? `${sec} s` : "";
 		const TimeString = `${Sdays} ${Shours} ${Smin} ${Ssec}`.trimStart();
 
-		wrapper.innerHTML = TimeString;
+		wrapper.innerHTML = "Uptime: "+TimeString;
 		return wrapper;
 	},
 	getDomPeers: function() {
