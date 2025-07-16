@@ -80,6 +80,11 @@ Module.register("MMM-I2PInfo", {
 
 		// Construct the DOM
 		wrapper.appendChild(this.getDomStatus());
+		wrapper.appendChild(this.getDomUptime());
+		wrapper.appendChild(this.getDomPeers());
+		wrapper.appendChild(this.getDomNetwork());
+		wrapper.appendChild(this.getDomTunnels());
+		wrapper.appendChild(this.getDomReseeding());
 
 		return wrapper;
 	},
@@ -130,4 +135,34 @@ Module.register("MMM-I2PInfo", {
 
 		return wrapper;
 	},
+	getDomUptime: function() {
+		const wrapper = document.createElement("div");
+		wrapper.className = "Uptime";
+
+		return wrapper;
+	},
+	getDomPeers: function() {
+		const wrapper = document.createElement("div");
+		wrapper.className = "Peers";
+
+		return wrapper;
+	},
+	getDomNetwork: function() {
+		const wrapper = document.createElement("div");
+		wrapper.className = "Network";
+
+		return wrapper;
+	},
+	getDomTunnels: function() {
+		const wrapper = document.createElement("div");
+		wrapper.className = "Tunnels";
+
+		return wrapper;
+	},
+	getDomReseeding: function() {
+		const wrapper = document.createElement("div");
+		wrapper.className = "Reseeding";
+
+		return wrapper;
+	}
 });
