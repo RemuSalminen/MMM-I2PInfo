@@ -147,10 +147,10 @@ Module.register("MMM-I2PInfo", {
 		const _days = _hours / 24;
 
 		// Format Uptime
-		const days = _days > 0 ? Math.round(_days) : 0;
-		const hours = (_hours - days*24) > 0 ? Math.round(_hours) : 0;
-		const min = (_min - (hours*60+days*24*60)) > 0 ? Math.round(_min) : 0;
-		const sec = (_sec - (min*60+hours*60*60+days*24*60*60)) > 0 ? Math.round(_sec) : 0;
+		const days = _days > 0 ? Math.floor(_days) : 0;
+		const hours = (_hours - days*24) > 0 ? Math.floor(_hours) : 0;
+		const min = (_min - (hours*60+days*24*60)) > 0 ? Math.floor(_min) : 0;
+		const sec = (_sec - (min*60+hours*60*60+days*24*60*60)) > 0 ? Math.floor(_sec) : 0;
 
 		// Stringify
 		const Sdays = days > 0 ? `${days} d` : "";
