@@ -139,6 +139,27 @@ Module.register("MMM-I2PInfo", {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Uptime";
 
+		// Initialize Uptime in different formats
+		const _msec = this.Router.uptime;
+		const _sec = _msec / 1000;
+		const _min = _sec / 60;
+		const _hours = _min / 60;
+		const _days = _hours / 24;
+
+		// Format Uptime
+		const days = _days > 0 ? Math.round(_days) : 0;
+		const hours = (_hours - days*24) > 0 ? Math.round(_hours) : 0;
+		const min = (_min - (hours*60+days*24*60)) > 0 ? Math.round(_min) : 0;
+		const sec = (_sec - (min*60+hours*60*60+days*24*60*60)) > 0 ? Math.round(_sec) : 0;
+
+		// Stringify
+		const Sdays = days > 0 ? `${days} d` : "";
+		const Shours = hours > 0 ? `${hours} h` : "";
+		const Smin = min > 0 ? `${min} m` : "";
+		const Ssec = sec > 0 ? `${sec} s` : "";
+		const TimeString = `${Sdays} ${Shours} ${Smin} ${Ssec}`.trimStart();
+
+		wrapper.innerHTML = TimeString;
 		return wrapper;
 	},
 	getDomPeers: function() {
