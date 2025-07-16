@@ -9,6 +9,10 @@ Module.register("MMM-I2PInfo", {
 		interval: 1000,
 	},
 
+	getStyles: function() {
+		return ["Style.css"];
+	},
+
 	//---// MagicMirror Functions //---//
 	loaded: function(callback) {
 		//Log.log("Loading " + this.name);
