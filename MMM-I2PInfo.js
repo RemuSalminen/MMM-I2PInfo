@@ -140,11 +140,11 @@ Module.register("MMM-I2PInfo", {
 		wrapper.className = "Uptime";
 
 		// Initialize Uptime in different formats
-		const _msec = this.Router.uptime;
-		const _sec = _msec / 1000;
-		const _min = _sec / 60;
-		const _hours = _min / 60;
-		const _days = _hours / 24;
+		let _msec = this.Router.uptime;
+		let _sec = _msec / 1000;
+		let _min = _sec / 60;
+		let _hours = _min / 60;
+		let _days = _hours / 24;
 
 		// Format Uptime
 		const days = _days > 0 ? Math.floor(_days) : 0;
