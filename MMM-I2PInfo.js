@@ -78,18 +78,55 @@ Module.register("MMM-I2PInfo", {
 		// If I2P Info hasn't been fetched yet, return the plain DOM
 		if (this.Router == undefined) return wrapper;
 
-		//wrapper.appendChild(this.getDomHeader());
+		// Construct the DOM
+		wrapper.appendChild(this.getDomStatus());
 
 		return wrapper;
 	},
 
 	//---// DOM constructs //---//
-	getDomHeader: function() {
+	getDomStatus: function() {
 		const wrapper = document.createElement("div");
-		wrapper.className = "Header";
+		wrapper.className = "Status";
 
-		const version = (this.Router != undefined) ? this.Router.version : "Loading...";
-		wrapper.innerHTML = "I2P" + " " + version;
+		const status = this.Router.status;
+		const statusState = {
+			0: "OK",
+			1: "OK",
+			2: "WARN",
+			3: "HIDDEN",
+			4: "WARN",
+			5: "WARN",
+			6: "WARN",
+			7: "WARN",
+			8: "ERROR",
+			9: "ERROR",
+			10: "ERROR",
+			11: "ERROR",
+			12: "ERROR",
+			13: "ERROR",
+			14: "ERROR"
+		};
+		const state = statusState[status];
+		const statusText = {
+			0: "Accepting Tunnel Requests",
+			1: "Testing",
+			2: "Firewalled",
+			3: "Hidden",
+			4: "Firewalled While Fast",
+			5: "Firewalled While Floodfill",
+			6: "Firewalled (Inbound TCP)",
+			7: "Firewalled (UDP Disabled)",
+			8: "I2CP",
+			9: "Clock Skew",
+			10: "Private TCP Address",
+			11: "Symmetric NAT",
+			12: "UDP Port In Use",
+			13: "No Active Peers!\nCheck Connection And Firewall",
+			14: "UDP Disabled And TCP Unset"
+		};
+
+		wrapper.innerHTML = `<${state}>Status: ${statusText[status]}</${state}>`;
 
 		return wrapper;
 	}
