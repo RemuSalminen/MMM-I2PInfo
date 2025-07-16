@@ -10,7 +10,7 @@ Module.register("MMM-I2PInfo", {
 	},
 
 	getStyles: function() {
-		return ["Style.css"];
+		return ["font-awesome.css", "Style.css"];
 	},
 
 	//---// MagicMirror Functions //---//
@@ -174,13 +174,13 @@ Module.register("MMM-I2PInfo", {
 		const highCapacity = this.Router.highCapacityPeers;
 		const known = this.Router.knownPeers;
 
-		const aSymbol = "\ueaad";
-		const fSymbol = "\uea67\udb80\udc0a";
-		const hSymbol = "\udb80\udc0e";
-		const kSymbol = "\uea7e\uf0c0";
+		const aSymbol = "person-rays";
+		const fSymbol = "person-running";
+		const hSymbol = "user-group";
+		const kSymbol = "users";
 
-		wrapper.innerHTML = `<active><symbol>${aSymbol}</symbol>${active}</active> <fast><symbol>${fSymbol}</symbol>${fast}</fast> `
-											+ `<highCapacity><symbol>${hSymbol}</symbol>${highCapacity}</highCapacity> <known><symbol>${kSymbol}</symbol>${known}</known>`;
+		wrapper.innerHTML = `<active><symbol><span class=\"fa fa-${aSymbol}\"</span></symbol>${active}</active> <fast><symbol><span class=\"fa fa-${fSymbol}\"</span></symbol>${fast}</fast> `
+											+ `<highCapacity><symbol><span class=\"fa fa-${hSymbol}\"</span></symbol>${highCapacity}</highCapacity> <known><symbol><span class=\"fa fa-${kSymbol}\"</span></symbol>${known}</known>`;
 		return wrapper;
 	},
 	getDomNetwork: function() {
