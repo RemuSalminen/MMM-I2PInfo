@@ -66,16 +66,24 @@ Module.register("MMM-I2PInfo", {
 		//setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.config.interval)
 	},
 
+	getHeader: function() {
+		const version = (this.Router != undefined) ? this.Router.version : "Loading...";
+		return "I2P" + " " + version;
+	},
+
 	getDom: function() {
 		const wrapper = document.createElement("div");
 		wrapper.className = "I2P";
 
-		wrapper.appendChild(this.getDomHeader());
+		// If I2P Info hasn't been fetched yet, return the plain DOM
+		if (this.Router == undefined) return wrapper;
+
+		//wrapper.appendChild(this.getDomHeader());
 
 		return wrapper;
 	},
 
-	// DOM constructs
+	//---// DOM constructs //---//
 	getDomHeader: function() {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Header";
