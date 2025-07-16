@@ -169,6 +169,18 @@ Module.register("MMM-I2PInfo", {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Peers";
 
+		const active = this.Router.activePeers;
+		const fast = this.Router.fastPeers;
+		const highCapacity = this.Router.highCapacityPeers;
+		const known = this.Router.knownPeers;
+
+		const aSymbol = "\ueaad";
+		const fSymbol = "\uea67\udb80\udc0a";
+		const hSymbol = "\udb80\udc0e";
+		const kSymbol = "\uea7e\uf0c0";
+
+		wrapper.innerHTML = `<active><symbol>${aSymbol}</symbol>${active}</active> <fast><symbol>${fSymbol}</symbol>${fast}</fast> `
+											+ `<highCapacity><symbol>${hSymbol}</symbol>${highCapacity}</highCapacity> <known><symbol>${kSymbol}</symbol>${known}</known>`;
 		return wrapper;
 	},
 	getDomNetwork: function() {
