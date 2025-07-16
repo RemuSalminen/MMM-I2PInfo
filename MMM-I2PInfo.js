@@ -127,7 +127,7 @@ Module.register("MMM-I2PInfo", {
 			10: "Private TCP Address!",
 			11: "Symmetric NAT!",
 			12: "UDP Port In Use!",
-			13: "No Active Peers!\nCheck Connection And Firewall.",
+			13: "No Active Peers!<br>Check Connection And Firewall.",
 			14: "UDP Disabled And TCP Unset!"
 		};
 
@@ -203,7 +203,7 @@ Module.register("MMM-I2PInfo", {
 		const up15s = "<span class=\"fa fa-angles-up\"</span>";
 		const down15s = "<span class=\"fa fa-angles-down\"</span>";
 
-		wrapper.innerHTML = `<short><symbol>${up1s}</symbol>${in1s} - <symbol>${down1s}</symbol>${out1s}</short>\n`
+		wrapper.innerHTML = `<short><symbol>${up1s}</symbol>${in1s} - <symbol>${down1s}</symbol>${out1s}</short><br>`
 											+`<long><symbol>${up15s}</symbol>${in15s} - <symbol>${down15s}</symbol>${out15s}</long>`;
 		return wrapper;
 	},
