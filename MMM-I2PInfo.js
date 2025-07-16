@@ -148,9 +148,12 @@ Module.register("MMM-I2PInfo", {
 
 		// Format Uptime
 		const days = _days > 0 ? Math.floor(_days) : 0;
-		const hours = (_hours - days*24) > 0 ? Math.floor(_hours) : 0;
-		const min = (_min - (hours*60+days*24*60)) > 0 ? Math.floor(_min) : 0;
-		const sec = (_sec - (min*60+hours*60*60+days*24*60*60)) > 0 ? Math.floor(_sec) : 0;
+		_hours -= days*24;
+		const hours = _hours > 0 ? Math.floor(_hours) : 0;
+		_min -= hours*60+days*24*60;
+		const min = _min > 0 ? Math.floor(_min) : 0;
+		_sec -= min*60+hours*60*60+days*24*60*60;
+		const sec = _sec > 0 ? Math.floor(_sec) : 0;
 
 		// Stringify
 		const Sdays = days > 0 ? `${days} d` : "";
