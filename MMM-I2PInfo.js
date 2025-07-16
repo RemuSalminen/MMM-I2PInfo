@@ -157,7 +157,7 @@ Module.register("MMM-I2PInfo", {
 		const Shours = hours > 0 ? `${hours} h` : "";
 		const Smin = min > 0 ? `${min} m` : "";
 		const Ssec = sec > 0 ? `${sec} s` : "";
-		const TimeString = `${Sdays} ${Shours} ${Smin} ${Ssec}`.trimStart();
+		const TimeString = `${Sdays} ${Shours} ${Smin} ${Ssec}`.trim();
 
 		wrapper.innerHTML = "Uptime: "+TimeString;
 		return wrapper;
