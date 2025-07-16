@@ -109,25 +109,25 @@ Module.register("MMM-I2PInfo", {
 		};
 		const state = statusState[netStatus];
 		const statusText = {
-			0: "Accepting Tunnel Requests",
-			1: "Testing",
-			2: "Firewalled",
+			0: "Accepting Tunnel Requests!",
+			1: "Testing...",
+			2: "Firewalled!",
 			3: "Hidden",
-			4: "Firewalled While Fast",
-			5: "Firewalled While Floodfill",
-			6: "Firewalled (Inbound TCP)",
-			7: "Firewalled (UDP Disabled)",
+			4: "Firewalled While Fast!",
+			5: "Firewalled While Floodfill!",
+			6: "Firewalled! (Inbound TCP)",
+			7: "Firewalled! (UDP Disabled)",
 			8: "I2CP",
-			9: "Clock Skew",
-			10: "Private TCP Address",
-			11: "Symmetric NAT",
-			12: "UDP Port In Use",
-			13: "No Active Peers!\nCheck Connection And Firewall",
-			14: "UDP Disabled And TCP Unset"
+			9: "Clock Skew!",
+			10: "Private TCP Address!",
+			11: "Symmetric NAT!",
+			12: "UDP Port In Use!",
+			13: "No Active Peers!\nCheck Connection And Firewall.",
+			14: "UDP Disabled And TCP Unset!"
 		};
 
 		wrapper.innerHTML = `<${state}>Status: ${statusText[netStatus]}</${state}>`;
 
 		return wrapper;
-	}
+	},
 });
