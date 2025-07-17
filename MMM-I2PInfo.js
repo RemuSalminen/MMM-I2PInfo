@@ -221,17 +221,17 @@ Module.register("MMM-I2PInfo", {
 		wrapper.innerHTML = `<symbol><span class=\"fa fa-${pSymbol}\"</span></symbol> ${participating}`;
 		return wrapper;
 	},
+	// Display an Icon if I2P is reSeeding
 	getDomReseeding: function() {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Reseeding";
 
 		const reseeding = this.Router.isReseeding;
-		const yesSymbol = "&#10003;";
-		const noSymbol = "&#10007;";
-		const state = (reseeding) ? yesSymbol : noSymbol;
 		const RSymbol = "seedling";
+		const RClass = `<symbol><span class=\"fa fa-${RSymbol}\"></span></symbol>`;
+		const state = (reseeding) ? RClass : "";
 
-		wrapper.innerHTML = `<symbol><span class=\"fa fa-${RSymbol}\"></span></symbol><symbol> ${state}</symbol>`;
+		wrapper.innerHTML = state;
 		return wrapper;
 	}
 });
