@@ -3,6 +3,17 @@ MagicMirror<sup>2</sup> module that displays Statistics from a running I2P
 Instance.
 
 ## Screenshot
+![Example Statistics](./screenshots/Default.png)
+
+The Person symbols indicate Peer statistics. And are in the
+following order:<br>
+Active, Fast, High Capacity, Known
+
+The arrows indicate inbound and outbound data flow. 1 Arrow corresponds to the
+1s average and double arrows to the 5s average.
+
+The last symbols are the number of Participating Tunnels, and the seed indicates
+if the Instance is reseeding.
 
 ## Installation
 ### Install
