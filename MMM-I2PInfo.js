@@ -131,7 +131,7 @@ Module.register("MMM-I2PInfo", {
 			14: "UDP Disabled And TCP Unset!"
 		};
 
-		wrapper.innerHTML = `<${state}>Status: ${statusText[netStatus]}</${state}>`;
+		wrapper.innerHTML = `<${state}>${statusText[netStatus]}</${state}>`;
 
 		return wrapper;
 	},
@@ -162,7 +162,7 @@ Module.register("MMM-I2PInfo", {
 		const Ssec = sec > 0 ? `${sec} s` : "";
 		const TimeString = `${Sdays} ${Shours} ${Smin} ${Ssec}`.trim();
 
-		wrapper.innerHTML = "Uptime: "+TimeString;
+		wrapper.innerHTML = TimeString;
 		return wrapper;
 	},
 	getDomPeers: function() {
