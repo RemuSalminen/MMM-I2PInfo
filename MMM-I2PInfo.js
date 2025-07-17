@@ -221,6 +221,13 @@ Module.register("MMM-I2PInfo", {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Reseeding";
 
+		const reseeding = this.Router.isReseeding;
+		const yesSymbol = "&#10003;";
+		const noSymbol = "&#10007;";
+		const state = (reseeding) ? yesSymbol : noSymbol;
+		const RSymbol = "seedling";
+
+		wrapper.innerHTML = `<symbol><span class=\"fa fa-${RSymbol}\"></span></symbol><symbol>${state}</symbol>`;
 		return wrapper;
 	}
 });
