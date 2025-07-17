@@ -14,19 +14,17 @@ module.exports = NodeHelper.create({
 				let version = payload.Version;
 				let password = payload.Password;
 				Log.info("Autheticating...");
-				Log.debug("Version: "+version+" "+"Password: "+password);
 				Log.debug("Client:");
 				Log.debug(Client);
 				const Token = await this.authenticate(Client, version, password);
-				Log.info("Authenticated! Token: " + Token);
+				Log.info("Authenticated!");
+				Log.debug("Token: " + Token);
 
 				ClientDictionary.set(Token, Client);
 
 				this.sendSocketNotification("I2P_ClientCreated", { token: Token })
 				break;
 			case "I2P_FetchRouterInfo":
-				//Log.debug("Dictionary:");
-				//Log.debug(ClientDictionary);
 				const TokenToFetch = payload.token;
 				const ClientToFetch = ClientDictionary.get(TokenToFetch);
 
@@ -70,7 +68,6 @@ module.exports = NodeHelper.create({
 
 	authenticate: async function(Client, version, password) {
 		const request = { API: version, Password: password };
-		//Log.debug(request);
 		const response = await Client.request("Authenticate", request);
 		return response.Token;
 	},
@@ -120,8 +117,8 @@ module.exports = NodeHelper.create({
 			isReseeding: NewStats['i2p.router.netdb.isreseeding']
 		};
 
-		Log.debug("RouterInfo:");
-		Log.debug(RouterInfo);
+		//Log.debug("RouterInfo:");
+		//Log.debug(RouterInfo);
 
 		return RouterInfo;
 	},

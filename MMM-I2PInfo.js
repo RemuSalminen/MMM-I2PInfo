@@ -14,21 +14,9 @@ Module.register("MMM-I2PInfo", {
 	},
 
 	//---// MagicMirror Functions //---//
-	loaded: function(callback) {
-		//Log.log("Loading " + this.name);
-		//const URL = this.ip + ":" + this.port + this.site;
-		//Log.log("Url is " + URL);
-
-		//this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.version, Password: this.password });
-
-		//Log.log("Finished loading " + this.name);
-		callback();
-	},
-
 	socketNotificationReceived: async function(notification, payload) {
 		switch (notification) {
 			case "I2P_ClientCreated":
-				Log.debug("Token: "+this.token);
 				if (this.token != undefined) break;
 				this.client = payload.client;
 				this.token = payload.token;
@@ -44,7 +32,7 @@ Module.register("MMM-I2PInfo", {
 				Log.debug("New Info Received");
 				if (payload.token != this.token) break;
 				this.Router = payload.routerInfo;
-				Log.log(this.Router);
+				//Log.debug(this.Router);
 
 				this.updateDom();
 				break;
@@ -55,15 +43,9 @@ Module.register("MMM-I2PInfo", {
 
 	start: function() {
 		const URL = this.config.ip + ":" + this.config.port + this.config.site;
-		Log.log("Url is " + URL);
-
-		//this.client = "";
-		//this.token = "";
+		//Log.debug("Url is " + URL);
 
 		this.sendSocketNotification("I2P_CreateClient&Authenticate", { URL: URL, Version: this.config.version, Password: this.config.password });
-
-		//while (this.token == undefined) {};
-		//setInterval(() => this.sendSocketNotification("I2P_FetchRouterInfo", { client: this.client, token: this.token }), this.config.interval)
 	},
 
 	getHeader: function() {
