@@ -179,8 +179,12 @@ Module.register("MMM-I2PInfo", {
 		const hSymbol = "user-group";
 		const kSymbol = "users";
 
-		wrapper.innerHTML = `<active><symbol><span class=\"fa fa-${aSymbol}\"</span></symbol>${active}</active> <fast><symbol><span class=\"fa fa-${fSymbol}\"</span></symbol>${fast}</fast> `
-											+ `<highCapacity><symbol><span class=\"fa fa-${hSymbol}\"</span></symbol>${highCapacity}</highCapacity> <known><symbol><span class=\"fa fa-${kSymbol}\"</span></symbol>${known}</known>`;
+		const aClass = `<active><symbol><span class=\"fa fa-${aSymbol}\"</span></symbol>${active}</active>`;
+		const fClass = `<fast><symbol><span class=\"fa fa-${fSymbol}\"</span></symbol>${fast}</fast>`;
+		const hClass = `<highCapacity><symbol><span class=\"fa fa-${hSymbol}\"</span></symbol>${highCapacity}</highCapacity>`;
+		const kClass = `<known><symbol><span class=\"fa fa-${kSymbol}\"</span></symbol>${known}</known>`;
+
+		wrapper.innerHTML = `${aClass}  ${fClass}  ${hClass}  ${kClass}`;
 		return wrapper;
 	},
 	getDomNetwork: function() {
@@ -214,7 +218,7 @@ Module.register("MMM-I2PInfo", {
 		const participating = this.Router.participating;
 		const pSymbol = "code-commit";
 
-		wrapper.innerHTML = `<symbol><span class=\"fa fa-${pSymbol}\"</span></symbol>${participating}`;
+		wrapper.innerHTML = `<symbol><span class=\"fa fa-${pSymbol}\"</span></symbol> ${participating}`;
 		return wrapper;
 	},
 	getDomReseeding: function() {
@@ -227,7 +231,7 @@ Module.register("MMM-I2PInfo", {
 		const state = (reseeding) ? yesSymbol : noSymbol;
 		const RSymbol = "seedling";
 
-		wrapper.innerHTML = `<symbol><span class=\"fa fa-${RSymbol}\"></span></symbol><symbol>${state}</symbol>`;
+		wrapper.innerHTML = `<symbol><span class=\"fa fa-${RSymbol}\"></span></symbol><symbol> ${state}</symbol>`;
 		return wrapper;
 	}
 });
