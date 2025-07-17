@@ -211,6 +211,10 @@ Module.register("MMM-I2PInfo", {
 		const wrapper = document.createElement("div");
 		wrapper.className = "Tunnels";
 
+		const participating = this.Router.participating;
+		const pSymbol = "code-commit";
+
+		wrapper.innerHTML = `<symbol><span class=\"fa fa-${pSymbol}\"</span></symbol>${participating}`;
 		return wrapper;
 	},
 	getDomReseeding: function() {
