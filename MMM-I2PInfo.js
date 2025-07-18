@@ -189,8 +189,8 @@ Module.register("MMM-I2PInfo", {
 		const up15s = "<span class=\"fa fa-angles-up\"</span>";
 		const down15s = "<span class=\"fa fa-angles-down\"</span>";
 
-		wrapper.innerHTML = `<short><symbol>${up1s}</symbol><in>${in1s}</in> - <symbol>${down1s}</symbol><out>${out1s}</short></out>` + "<br>"
-											+`<long><symbol>${up15s}</symbol><in>${in15s}</in> - <symbol>${down15s}</symbol><out>${out15s}</long></out>`;
+		wrapper.innerHTML = `<short><symbol>${down1s}</symbol><in>${in1s}</in> - <symbol>${up1s}</symbol><out>${out1s}</short></out>` + "<br>"
+											+`<long><symbol>${down15s}</symbol><in>${in15s}</in> - <symbol>${up15s}</symbol><out>${out15s}</long></out>`;
 		return wrapper;
 	},
 	getDomTunnels: function() {
