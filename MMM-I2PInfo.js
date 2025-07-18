@@ -34,15 +34,7 @@ Module.register("MMM-I2PInfo", {
 				this.Router = payload.routerInfo;
 				//Log.debug(this.Router);
 
-				this.updateDom({
-					options: {
-						speed: 500,
-						animate: {
-							in: "backInDown",
-							out: "backOutUp"
-						}
-					}
-				});
+				this.updateDom();
 				break;
 			default:
 				break;
